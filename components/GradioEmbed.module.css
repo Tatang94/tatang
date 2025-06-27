@@ -1,0 +1,153 @@
+.container {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  height: 100dvh; /* Dynamic viewport height for modern browsers */
+  background: var(--background);
+  border-radius: 0;
+  overflow: hidden;
+  margin: 0;
+  padding: 0;
+  z-index: var(--z-content-high);
+}
+
+.gradioWrapper {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  margin: 0;
+  padding: 0;
+}
+
+.iframe {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  height: 100dvh; /* Dynamic viewport height for modern browsers */
+  border: none;
+  background: var(--background);
+  border-radius: 0;
+  margin: 0;
+  padding: 0;
+  z-index: var(--z-content-high);
+}
+
+/* Ensure the iframe takes full available space */
+.container,
+.gradioWrapper,
+.iframe {
+  min-height: 0; /* Important for flex growth */
+}
+
+/* Loading state styles */
+.gradioWrapper::before {
+  content: 'Loading AI Assistant...';
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  color: var(--muted-foreground);
+  font-family: var(--font-family-base);
+  font-size: 1rem;
+  z-index: 1;
+  pointer-events: none;
+}
+
+/* Hide loading text once iframe loads */
+.gradioWrapper:has(.iframe) ::before {
+  display: none;
+}
+
+/* Mobile responsiveness */
+@media (max-width: 768px) {
+  .container {
+    border-radius: 0;
+  }
+}
+
+/* Dark mode adjustments */
+:global(.dark) .iframe {
+  background: var(--background);
+}
+
+/* Full screen mobile optimization */
+@media (max-width: 768px) {
+  .container {
+    width: 100vw;
+    height: 100vh;
+    height: 100dvh; /* Dynamic viewport height */
+    border-radius: 0;
+    margin: 0;
+    padding: 0;
+  }
+  
+  .gradioWrapper {
+    margin: 0;
+    padding: 0;
+  }
+  
+  .iframe {
+    width: 100vw;
+    height: 100vh;
+    height: 100dvh; /* Dynamic viewport height */
+    border-radius: 0;
+    margin: 0;
+    padding: 0;
+  }
+}
+
+@media (max-width: 480px) {
+  .container {
+    width: 100vw;
+    height: 100vh;
+    height: 100dvh; /* Dynamic viewport height */
+    border-radius: 0;
+    margin: 0;
+    padding: 0;
+  }
+  
+  .gradioWrapper {
+    margin: 0;
+    padding: 0;
+  }
+  
+  .iframe {
+    width: 100vw;
+    height: 100vh;
+    height: 100dvh; /* Dynamic viewport height */
+    border-radius: 0;
+    margin: 0;
+    padding: 0;
+  }
+}
+
+/* Android-specific optimizations */
+@media screen and (max-width: 768px) and (-webkit-min-device-pixel-ratio: 1) {
+  .container,
+  .gradioWrapper,
+  .iframe {
+    width: 100vw;
+    height: 100vh;
+    height: 100dvh; /* Dynamic viewport height */
+    height: -webkit-fill-available; /* Safari fallback */
+  }
+}
+
+/* Ensure no extra spacing on mobile */
+@media (max-width: 768px) {
+  .container,
+  .gradioWrapper {
+    box-sizing: border-box;
+  }
+  
+  .iframe {
+    box-sizing: border-box;
+    display: block;
+  }
+}

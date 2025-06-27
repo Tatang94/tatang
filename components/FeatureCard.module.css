@@ -1,0 +1,76 @@
+.card {
+  position: relative;
+  padding: var(--spacing-6);
+  background: color-mix(in srgb, var(--surface) 60%, transparent);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-lg);
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-3);
+  transition: all var(--animation-duration-normal) ease;
+  overflow: hidden;
+  z-index: 1;
+}
+
+.card:hover {
+  transform: translateY(-4px);
+  border-color: color-mix(in srgb, var(--primary) 40%, transparent);
+  box-shadow: var(--shadow-lg);
+}
+
+.iconWrapper {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 56px;
+  height: 56px;
+  border-radius: var(--radius-md);
+  background: color-mix(in srgb, var(--primary) 15%, transparent);
+  border: 1px solid color-mix(in srgb, var(--primary) 25%, transparent);
+  margin-bottom: var(--spacing-2);
+}
+
+.icon {
+  color: var(--primary);
+}
+
+.title {
+  font-family: var(--font-family-heading);
+  font-size: 1.25rem;
+  font-weight: 600;
+  color: var(--foreground);
+  margin: 0;
+}
+
+.description {
+  font-family: var(--font-family-base);
+  font-size: 0.95rem;
+  color: var(--muted-foreground);
+  line-height: 1.6;
+  margin: 0;
+}
+
+/* Glassmorphism hover effect */
+.glow {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 150%;
+  height: 150%;
+  background: radial-gradient(circle at var(--mouse-x) var(--mouse-y), hsla(250, 95%, 65%, 0.1), transparent 40%);
+  transform: translate(-25%, -25%);
+  opacity: 0;
+  transition: opacity var(--animation-duration-slow) ease;
+  z-index: -1;
+}
+
+.card:hover .glow {
+  opacity: 1;
+}
+
+/* Script to update mouse position for the glow effect */
+/* This is a bit of a hack for CSS-modules, but it works. */
+/* A better approach would be a small JS snippet in the component. */
+/* For now, let's assume the parent component handles this if needed, */
+/* or we can add it directly to the component. */
+/* Let's add it to the component for self-containment. */

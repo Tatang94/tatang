@@ -1,0 +1,153 @@
+.container {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  height: 100dvh; /* Dynamic viewport height for modern browsers */
+  background-color: var(--background);
+  z-index: var(--z-overlay);
+  overflow: hidden;
+  margin: 0;
+  padding: 0;
+}
+
+.embedContainer {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+.embed {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  height: 100dvh; /* Dynamic viewport height for modern browsers */
+  aspect-ratio: unset; /* Override the default aspect ratio for full screen */
+  max-width: none;
+  border: none;
+  border-radius: 0;
+  margin: 0;
+  padding: 0;
+  z-index: var(--z-content-high);
+  transition: none;
+}
+
+.embed:hover {
+  box-shadow: none;
+  transform: none;
+}
+
+/* Mobile responsiveness */
+@media (max-width: 768px) {
+  .container {
+    width: 100vw;
+    height: 100vh;
+    height: 100dvh; /* Dynamic viewport height */
+  }
+  
+  .embedContainer {
+    padding: 0;
+    margin: 0;
+  }
+  
+  .embed {
+    width: 100vw;
+    height: 100vh;
+    height: 100dvh; /* Dynamic viewport height */
+    border-radius: 0;
+  }
+}
+
+@media (max-width: 480px) {
+  .container {
+    width: 100vw;
+    height: 100vh;
+    height: 100dvh; /* Dynamic viewport height */
+  }
+  
+  .embedContainer {
+    padding: 0;
+    margin: 0;
+  }
+  
+  .embed {
+    width: 100vw;
+    height: 100vh;
+    height: 100dvh; /* Dynamic viewport height */
+    border-radius: 0;
+  }
+  
+  .embed:hover {
+    transform: none; /* Disable hover transform on mobile */
+  }
+}
+
+/* Dark mode specific adjustments */
+:global(.dark) .embed {
+  box-shadow: none;
+}
+
+:global(.dark) .embed:hover {
+  box-shadow: none;
+}
+
+/* High contrast mode support */
+@media (prefers-contrast: high) {
+  .embed {
+    border: 2px solid var(--border);
+  }
+}
+
+/* Reduced motion support */
+@media (prefers-reduced-motion: reduce) {
+  .embed {
+    transition: none;
+  }
+  
+  .embed:hover {
+    transform: none;
+  }
+}
+
+/* Focus management for accessibility */
+.embed:focus-within {
+  outline: 2px solid var(--primary);
+  outline-offset: 2px;
+}
+
+/* Loading state styling */
+.embedContainer::before {
+  content: '';
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 2rem;
+  height: 2rem;
+  border: 2px solid var(--muted);
+  border-top-color: var(--primary);
+  border-radius: 50%;
+  animation: spin 1s linear infinite;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity var(--animation-duration-normal) ease;
+}
+
+@keyframes spin {
+  to {
+    transform: translate(-50%, -50%) rotate(360deg);
+  }
+}
+
+/* Show loading spinner when embed is loading */
+.embedContainer:has(.embed[data-loading="true"])::before {
+  opacity: 1;
+}
